@@ -12,7 +12,7 @@
 </head>
 <script>
     function cancel(){
-        location.href='/board1.jsp';
+        location.href='/notify_board.jsp';
     }
 
     function submit(){
@@ -21,7 +21,7 @@
 </script>
 <body>
     <form action="/board1_write" method="post">
-        <p><input type="text" name="title" placeholder="제목"></p>
+        <p>글제목 <input type="text" name="title"></p>
         <p>
             <textarea placeholder="내용" name="content"></textarea>
         </p>

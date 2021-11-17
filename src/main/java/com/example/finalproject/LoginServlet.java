@@ -21,7 +21,7 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id=request.getParameter("id");
         String pwd=request.getParameter("pwd");
-        String query = "SELECT * FROM user_table WHERE USERNAME=?";
+        String query = "SELECT * FROM USER WHERE USERNAME=?";
         Connection conn=null;
         PreparedStatement pst=null;
         ResultSet rs=null;

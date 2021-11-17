@@ -19,6 +19,7 @@
         <p>아이디 <input type="text" name="id"> <button value="중복확인">중복확인</button> </p>
         <p>비밀번호 <input type="password" name="pwd"></p>
         <p>이름 <input type="text" name="name"></p>
+        <p>닉네임 <input type="text" name="nickname"></p>
         <p>전화번호 <select name="phone1">
             <option value="010">010</option>
             <option value="011">011</option>

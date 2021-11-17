@@ -34,8 +34,8 @@
     }
 %>
 
-<a href="board1.jsp">게시판1</a>
-<a href="board2.jsp">게시판2</a>
+<a href="notify_board.jsp">게시판1</a>
+<a href="book_board.jsp">게시판2</a>
 
 </body>
 </html>

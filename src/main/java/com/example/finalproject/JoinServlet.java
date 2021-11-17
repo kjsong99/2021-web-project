@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @WebServlet(name = "JoinServlet", value = "/join")
 public class JoinServlet extends HttpServlet {
@@ -28,8 +30,19 @@ public class JoinServlet extends HttpServlet {
         String birth=request.getParameter("birth1")+"-"+
                 request.getParameter("birth2")+"-"+
                 request.getParameter("birth3");
+        String nickname=request.getParameter("nickname");
 
-        String query = "INSERT INTO user_table (USERNAME, NAME, PWD, PHONE, SEX, BIRTH) VALUES (?,?,?,?,?,?)";
+        SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
+        Date dateBirth= null;
+        try {
+            dateBirth = df.parse(birth);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        java.sql.Date sqlBirth=new java.sql.Date(dateBirth.getTime());
+
+        String query = "INSERT INTO USER(USERNAME, NAME, PWD, PHONE, SEX, BIRTH,NICKNAME) VALUES (?,?,?,?,?,?,?)";
         Connection conn=null;
         PreparedStatement pst=null;
 
@@ -47,7 +60,8 @@ public class JoinServlet extends HttpServlet {
             pst.setString(3,pwd);
             pst.setString(4,phone);
             pst.setString(5,sex);
-            pst.setString(6,birth);
+            pst.setDate(6, sqlBirth);
+            pst.setString(7,nickname);
 
             if(pst.executeUpdate()>0){
                 writer.println("회원가입 성공<br>");

@@ -15,6 +15,7 @@
     request.setCharacterEncoding("utf-8");
 %>
     <h3>회원가입</h3>
+
     <form action="/join" method="post" accept-charset="utf-8">
         <p>아이디 <input type="text" name="id"> <button value="중복확인">중복확인</button> </p>
         <p>비밀번호 <input type="password" name="pwd"></p>

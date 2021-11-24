@@ -27,8 +27,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
             <version>4.0.1</version>
             <scope>provided</scope>
         </dependency>
@@ -59,9 +59,9 @@
             <version>5.3.5</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/javax.servlet/servlet-api -->
+        <!-- https://mvnrepository.com/artifact/jakarta.servlet/servlet-api -->
         <dependency>
-            <groupId>javax.servlet</groupId>
+            <groupId>jakarta.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <version>2.5</version>
             <scope>provided</scope>
@@ -90,6 +90,14 @@
             <artifactId>spring-web</artifactId>
             <version>5.3.5</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/servlets.com/cos -->
+        <dependency>
+            <groupId>servlets.com</groupId>
+            <artifactId>cos</artifactId>
+            <version>05Nov2002</version>
+        </dependency>
+
 
 
     </dependencies>

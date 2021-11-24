@@ -1,26 +1,23 @@
 package com.example.finalproject;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
+import javax.servlet.http.HttpServletRequest;
+import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.Properties;
 
 public class dbConnection {
-    public static Connection connect(){
+    public static Connection connect() throws IOException {
         Connection conn=null;
         Properties pro=new Properties();
-        String path="./config/conn.properties";
-        ClassLoader classLoader=Thread.currentThread().getContextClassLoader();
-        InputStream inputStream=classLoader.getResourceAsStream(path);
-        try {
-            pro.load(inputStream);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String path="/Users/song-gyeongjin/jsp/finalProject/src/main/webapp/config/conn.properties";
+        FileInputStream fis=new FileInputStream(path);
+        pro.load(new BufferedInputStream(fis));
 
         try{
+            System.out.println(pro.getProperty("user"));
             String user=pro.getProperty("user");
             String password=pro.getProperty("password");
             String url=pro.getProperty("url");

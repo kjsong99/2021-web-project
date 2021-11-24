@@ -60,7 +60,8 @@
     </orderEntry>
     <orderEntry type="library" name="servlet-api" level="project" />
     <orderEntry type="library" name="jsp-api" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: javax.servlet:javax.servlet-api:4.0.1" level="project" />
+    <orderEntry type="library" name="Java EE 6-Java EE 6" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: jakarta.servlet:jakarta.servlet-api:4.0.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-api:5.7.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.apiguardian:apiguardian-api:1.1.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.opentest4j:opentest4j:1.2.0" level="project" />
@@ -70,7 +71,7 @@
     <orderEntry type="library" name="Maven: oracle:ojdbc6:11.2.0.3" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-core:5.3.5" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-jcl:5.3.5" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: javax.servlet:servlet-api:2.5" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: jakarta.servlet:servlet-api:2.5" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:8.0.22" level="project" />
     <orderEntry type="library" name="Maven: com.google.protobuf:protobuf-java:3.11.4" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context:5.3.5" level="project" />
@@ -78,5 +79,6 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-beans:5.3.5" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:5.3.5" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-web:5.3.5" level="project" />
+    <orderEntry type="library" name="Maven: servlets.com:cos:05Nov2002" level="project" />
   </component>
 </module>

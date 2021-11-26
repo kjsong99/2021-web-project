@@ -27,12 +27,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>jakarta.servlet</groupId>
-            <artifactId>jakarta.servlet-api</artifactId>
-            <version>4.0.1</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <version>${junit.version}</version>
@@ -59,13 +53,6 @@
             <version>5.3.5</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/jakarta.servlet/servlet-api -->
-        <dependency>
-            <groupId>jakarta.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
-            <scope>provided</scope>
-        </dependency>
 
 
         <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->

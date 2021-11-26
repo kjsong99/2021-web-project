@@ -2,26 +2,34 @@
 <%@ page import="com.example.finalproject.dbConnection" %>
 <%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.ResultSet" %>
+<%@ page import="javax.servlet.ServletOutputStream" %>
+<%@ page import="java.sql.Blob" %>
+<%@ page import="java.io.InputStream" %>
+<%@ page import="java.io.OutputStream" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
     <title>index</title>
     <style>
-        div {
+        ul li { display:inline-block; margin:10px;  }
+        div.left {
             width: 100%;
             height: 300px;
             border: 1px solid #000;
             border-radius: 15px;
-        }
-        div.left {
             height: 300px;
             width: 23%;
             float: left;
             box-sizing: border-box;
             margin: 1%;
+
         }
         div.right {
+            width: 100%;
+            height: 300px;
+            border: 1px solid #000;
+            border-radius: 15px;
             height: 600px;
             width: 73%;
             float: right;
@@ -61,8 +69,10 @@
         );
     }
     else{
+        String id= String.valueOf(session.getAttribute("id"));
+        out.print("<p><a href=#>"+id+"</a>님 ");
         out.println(
-                "<p><button onclick=\"logout()\">로그아웃</button></p>"
+                "<button onclick=\"logout()\">로그아웃</button></p>"
         );
     }
 %>
@@ -87,17 +97,42 @@
             con = dbConnection.connect();
             Statement st = con.createStatement();
             ResultSet rs=st.executeQuery("select * from book");
+            int num=0;
             String title="";
+            int price=0;
+            out.println("<ul>");
             while (rs.next()) {
                 title = rs.getString(1);
-                out.println("<a href=#>"+title+"</a>");
-            }
-            %>
+                num=rs.getInt(10);
+                price=rs.getInt(2);
 
+                out.print("<li><div><img width=150 height=200 src=\"./blob_print.jsp?num="+num+"\"/></div>");
+
+
+                out.print("<div text-align=center><a href=./book_info.jsp?num="+num+">"+title+"</a></div>");
+                out.print("<div text-align=center><span>"+price+"</span></div></li>");
+            }
+            out.println("</ul>");
+            %>
 </div>
 
 <div class="left">
     <p>공지사항 <button onclick="notice()" style="float: right; margin: 10px;">더보기</button> </p>
+    <%
+
+        request.setCharacterEncoding("utf-8");
+        Statement st2 = con.createStatement();
+        ResultSet rs2=st.executeQuery("select * from NOTICE");
+        int num2=0;
+        String title2="";
+        while (rs2.next()) {
+            title2 = rs2.getString(1);
+            num2=rs2.getInt(3);
+            out.println("<a href=./notice_info.jsp?num="+num2+">"+title2+"</a><br>");
+        }
+    %>
+
+<%--    책 검색 기능 구현 (마이페이지 서블릿 및 jsp 파일 생성--%>
 
 </div>
 

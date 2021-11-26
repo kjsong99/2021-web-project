@@ -11,6 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-
+<%--책 조회, 삭제, 수정, 목록 기능 구현--%>
 </body>
 </html>

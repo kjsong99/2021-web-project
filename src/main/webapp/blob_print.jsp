@@ -25,7 +25,7 @@
     Connection con = null;
     con = dbConnection.connect();
     Statement st = con.createStatement();
-    ResultSet rs=st.executeQuery("select * from book where num="+num);
+    ResultSet rs=st.executeQuery("select * from BOOK where NUMBER="+num);
     if(rs.next()){
         image=rs.getBlob(9);
         if(image!=null){

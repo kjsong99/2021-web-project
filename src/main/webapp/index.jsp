@@ -96,7 +96,7 @@
             Connection con = null;
             con = dbConnection.connect();
             Statement st = con.createStatement();
-            ResultSet rs=st.executeQuery("select * from book");
+            ResultSet rs=st.executeQuery("select * from BOOK");
             int num=0;
             String title="";
             int price=0;

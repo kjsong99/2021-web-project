@@ -58,7 +58,7 @@ public class BookWriteServlet extends HttpServlet {
             if(rs.next()){
                 num=rs.getInt(1);
             }
-            PreparedStatement pre = con.prepareStatement("insert into BOOK (TITLE, PRICE, WRITER,CATEGORY,DATE,COMPANY,STATUS,USERNAME,NUM,IMAGE) VALUES (?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pre = con.prepareStatement("insert into BOOK (TITLE, PRICE, WRITER,CATEGORY,DATE,COMPANY,STATUS,USERNAME,NUMBER,IMAGE) VALUES (?,?,?,?,?,?,?,?,?,?)");
             pre.setString(1,title);
             pre.setInt(2,price);
             pre.setString(3,writer);
@@ -75,6 +75,8 @@ public class BookWriteServlet extends HttpServlet {
             System.out.println("Inserting Successfully!");
             pre.close();
             con.close();
+            response.sendRedirect("/");
+
         } catch (Exception e){
             System.out.println(e.getMessage());
         }

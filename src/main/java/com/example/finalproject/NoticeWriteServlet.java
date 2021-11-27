@@ -51,6 +51,7 @@ public class NoticeWriteServlet extends HttpServlet {
             System.out.println("Inserting Successfully!");
             pre.close();
             con.close();
+            response.sendRedirect("notice_board.jsp");
         } catch (Exception e){
             System.out.println(e.getMessage());
         }

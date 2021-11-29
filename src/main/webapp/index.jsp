@@ -59,6 +59,10 @@
     function notice(){
         location.href="notice_board.jsp"
     }
+
+    function category(){
+
+    }
 </script>
 
 <%
@@ -79,11 +83,10 @@
 
 <div class="left">
     <p>카테고리</p>
-    <p>전체<input type="radio" name="category" value="전체" checked></p>
-    <p>기술서적<input type="radio" name="category" value="기술서적"></p>
-    <p>소설<input type="radio" name="category" value="소설"></p>
-    <p>에세이<input type="radio" name="category" value="에세이"></p>
-
+    <p><a href="/book_board.jsp?category=전체">전체</a></p>
+    <p><a href="/book_board.jsp?category=소설">소설</a></p>
+    <p><a href="/book_board.jsp?category=기술서적">기술서적</a></p>
+    <p><a href="/book_board.jsp?category=에세이">에세이</a></p>
 </div>
 
 
@@ -96,7 +99,7 @@
             Connection con = null;
             con = dbConnection.connect();
             Statement st = con.createStatement();
-            ResultSet rs=st.executeQuery("select * from BOOK");
+            ResultSet rs=st.executeQuery("select * from BOOK where SOLD=0");
             int num=0;
             String title="";
             int price=0;

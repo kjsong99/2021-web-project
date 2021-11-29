@@ -17,7 +17,6 @@ public class dbConnection {
         pro.load(new BufferedInputStream(fis));
 
         try{
-            System.out.println(pro.getProperty("user"));
             String user=pro.getProperty("user");
             String password=pro.getProperty("password");
             String url=pro.getProperty("url");

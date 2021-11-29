@@ -20,9 +20,12 @@ public class NoticeDeleteServlet extends HttpServlet {
             Statement st = con.createStatement();
             String query="delete from NOTICE where NUMBER="+num;
             st.executeUpdate(query);
+            st.close();
+            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        response.sendRedirect("./notice_board.jsp");
 
     }
 

@@ -16,16 +16,6 @@
 </head>
 <body>
 
-<script>
-    function book_modify(num){
-
-
-    }
-
-    function book_delete(num){
-
-    }
-</script>
 
 
 <%
@@ -70,7 +60,7 @@
     <p><%=username%></p>
 
 </div>
-<div><a href="/book_modify.jsp?num=<%=num%>">수정</a> <a href="/bookDelete?num=<%=num%>">삭제</a> </div>
+<div><a href="/book_modify.jsp?num=<%=num%>">수정</a> <a href="/bookDelete?num=<%=num%>">삭제</a> <a href="bookSold?num=<%=num%>">판매완료</a> </div>
 <%--책 조회, 삭제, 수정, 목록 기능 구현--%>
 </body>
 </html>

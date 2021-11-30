@@ -20,6 +20,7 @@
     }
 </script>
 <body>
+<jsp:include page="header.jsp"></jsp:include>
     <form action="/notice_write" method="post">
         <p>글제목 <input type="text" name="title"></p>
         <p>

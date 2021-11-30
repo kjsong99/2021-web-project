@@ -39,6 +39,7 @@
         content=rs.getString(5);
     }
 %>
+<jsp:include page="header.jsp"></jsp:include>
 <form action="/noticeModify" method="post">
     <p>글제목 <input type="text" name="title" value="<%=title%>"></p>
     <p>

@@ -20,6 +20,7 @@
 
 </head>
 <body>
+<jsp:include page="header.jsp"></jsp:include>
 <%
 
     Connection con = null;

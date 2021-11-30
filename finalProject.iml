@@ -78,5 +78,8 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:5.3.5" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-web:5.3.5" level="project" />
     <orderEntry type="library" name="Maven: servlets.com:cos:05Nov2002" level="project" />
+    <orderEntry type="library" name="Maven: javax.servlet:jstl:1.2" level="project" />
+    <orderEntry type="library" name="Maven: taglibs:standard:1.1.2" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.taglibs:taglibs-standard-impl:1.2.5" level="project" />
   </component>
 </module>

@@ -11,6 +11,7 @@
     <title>책 등록</title>
 </head>
 <body>
+<jsp:include page="header.jsp"></jsp:include>
 <form action="/bookWrite" method="post" accept-charset="utf-8" enctype="multipart/form-data">
     <p>책 제목 <input type="text" name="title"> </p>
     <p>저자 <input type="text" name="writer"></p>

@@ -34,7 +34,6 @@
             int bufferSize=(int)image.length();
             byte[] buffer=new byte[bufferSize];
             out.clear();
-            out=pageContext.pushBody();
             BufferedOutputStream fout=new BufferedOutputStream(response.getOutputStream());
             while((length=in.read(buffer))!=-1){
                 fout.write(buffer);

@@ -16,6 +16,7 @@
     <title>Title</title>
 </head>
 <body>
+<jsp:include page="header.jsp"></jsp:include>
 
 <%
     int num= Integer.parseInt(request.getParameter("num"));

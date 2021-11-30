@@ -14,6 +14,7 @@
 <%
     request.setCharacterEncoding("utf-8");
 %>
+<jsp:include page="header.jsp"></jsp:include>
     <h3>회원가입</h3>
 
     <form action="/join" method="post" accept-charset="utf-8">

@@ -36,6 +36,7 @@
 
     }
 %>
+<jsp:include page="header.jsp"></jsp:include>
 <form action="/bookModify" method="post" accept-charset="utf-8">
     <p>책 제목 <input type="text" name="title" value="<%=title%>"> </p>
     <p>저자 <input type="text" name="writer" value="<%=writer%>"></p>

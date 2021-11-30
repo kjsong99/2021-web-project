@@ -11,6 +11,7 @@
     <title>Title</title>
 </head>
 <body>
+<jsp:include page="header.jsp"></jsp:include>
     <form action="login" method="post">
         <p>아이디 <input type="text" name="id"></p>
         <p>비밀번호 <input type="password" name="pwd"></p>

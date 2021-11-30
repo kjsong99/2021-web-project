@@ -37,33 +37,35 @@
             margin: 1%;
         }
     </style>
+    <script>
+        function login(){
+            location.href="login.jsp"
+        }
+
+        function join() {
+            location.href="join.jsp"
+        }
+
+        function logout(){
+            location.href="logout.jsp"
+        }
+
+        function bookWrite(){
+            location.href="book_write.jsp"
+        }
+
+        function notice(){
+            location.href="notice_board.jsp"
+        }
+
+        function category(){
+
+        }
+    </script>
 </head>
 <body>
-<script>
-    function login(){
-        location.href="login.jsp"
-    }
+<jsp:include page="header.jsp"></jsp:include>
 
-    function join() {
-        location.href="join.jsp"
-    }
-
-    function logout(){
-        location.href="logout.jsp"
-    }
-
-    function bookWrite(){
-        location.href="book_write.jsp"
-    }
-
-    function notice(){
-        location.href="notice_board.jsp"
-    }
-
-    function category(){
-
-    }
-</script>
 
 <%
     if(session.getAttribute("id")==null){
@@ -74,7 +76,7 @@
     }
     else{
         String id= String.valueOf(session.getAttribute("id"));
-        out.print("<p><a href=#>"+id+"</a>님 ");
+        out.print("<p><a href=\'./user_page.jsp?nav=user\'>"+id+"</a>님 ");
         out.println(
                 "<button onclick=\"logout()\">로그아웃</button></p>"
         );

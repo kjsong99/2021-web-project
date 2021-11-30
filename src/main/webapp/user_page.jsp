@@ -16,8 +16,6 @@
 <html>
 <head>
     <title>Title</title>
-
-
 </head>
 <body>
 <jsp:include page="header.jsp"></jsp:include>
@@ -139,6 +137,7 @@
             </c:forEach>
         </c:when>
     </c:choose>
+    <a href="/userModify?username=<%=id%>">정보수정</a> <a href="/userDelete?username=<%=id%>">탈퇴</a>
 
 
 

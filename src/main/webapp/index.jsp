@@ -1,15 +1,13 @@
-<%@ page import="java.sql.Connection" %>
 <%@ page import="com.example.finalproject.dbConnection" %>
-<%@ page import="java.sql.Statement" %>
-<%@ page import="java.sql.ResultSet" %>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="javax.servlet.ServletOutputStream" %>
-<%@ page import="java.sql.Blob" %>
 <%@ page import="java.io.InputStream" %>
 <%@ page import="java.io.OutputStream" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.finalproject.Book" %>
+<%@ page import="java.sql.*" %>
+<%@ page import="com.example.finalproject.Notice" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -17,12 +15,12 @@
     <title>index</title>
     <style>
         ul li { display:inline-block; margin:10px;  }
-        div.left {
+        nav{
             width: 100%;
-            height: 300px;
-            border: 1px solid #000;
-            border-radius: 15px;
-            height: 300px;
+            text-align: center;
+        }
+        div.left {
+            height:600px;
             width: 23%;
             float: left;
             box-sizing: border-box;
@@ -30,10 +28,6 @@
 
         }
         div.right {
-            width: 100%;
-            height: 300px;
-            border: 1px solid #000;
-            border-radius: 15px;
             height: 600px;
             width: 73%;
             float: right;
@@ -61,10 +55,6 @@
         function notice(){
             location.href="notice_board.jsp"
         }
-
-        function category(){
-
-        }
     </script>
 </head>
 <body>
@@ -87,13 +77,21 @@
     }
 %>
 
-<div class="left">
-    <p>카테고리</p>
-    <p><a href="/index.jsp?category=전체">전체</a></p>
-    <p><a href="/index.jsp?category=소설">소설</a></p>
-    <p><a href="/index.jsp?category=기술서적">기술서적</a></p>
-    <p><a href="/index.jsp?category=에세이">에세이</a></p>
-</div>
+<%--<div class="left">--%>
+<%--    <p>카테고리</p>--%>
+<%--    <p><a href="/index.jsp?category=전체">전체</a></p>--%>
+<%--    <p><a href="/index.jsp?category=소설">소설</a></p>--%>
+<%--    <p><a href="/index.jsp?category=기술서적">기술서적</a></p>--%>
+<%--    <p><a href="/index.jsp?category=에세이">에세이</a></p>--%>
+<%--</div>--%>
+<nav style="float: right">
+    <ul>
+        <li><a href="/index.jsp?category=전체">전체</a></li>
+        <li><a href="/index.jsp?category=소설">소설</a></li>
+        <li><a href="/index.jsp?category=기술서적">기술서적</a></li>
+        <li><a href="/index.jsp?category=에세이">에세이</a></li>
+    </ul>
+</nav>
 
 
 <div class="right">
@@ -105,7 +103,13 @@
         String search=request.getParameter("search");
         System.out.println(search);
     %>
-    <p>책목록 <button onclick="bookWrite()" style="float: right; margin: 10px;">등록</button></p>
+    <c:set var="category" value="<%=category%>"/>
+    <p>
+        <c:choose>
+            <c:when test="${category eq null}"><h3>전체</h3></c:when>
+            <c:otherwise><%=category%></c:otherwise>
+        </c:choose>
+    <button onclick="bookWrite()" style="float: right; margin: 10px;">등록</button></p>
     <p>
     <form action="index.jsp" method="get">
         <select name="target">
@@ -132,7 +136,7 @@
                     <c:set var="num" value="${book['number']}"/>
                     <ul style="display: inline-block; margin: 10px">
                         <li style="display: inline-block; margin: 10px">
-                            <div><img width="100" height="150" src="blob_print.jsp?num=${num}"></div>
+                            <div><img width="140" height="170" src="blob_print.jsp?num=${num}"></div>
                             <div><a href="book_info.jsp?num=${num}">${book['title']}</a> </div>
                             <div>${book['price']}</div>
                         </li>
@@ -148,7 +152,7 @@
                     <c:set var="num" value="${book['number']}"/>
                     <ul style="display: inline-block; margin: 10px">
                         <li style="display: inline-block; margin: 10px">
-                            <div><img width="100" height="150" src="blob_print.jsp?num=${num}"></div>
+                            <div><img width="140" height="170" src="blob_print.jsp?num=${num}"></div>
                             <div><a href="book_info.jsp?num=${num}">${book['title']}</a> </div>
                             <div>${book['price']}</div>
                         </li>
@@ -169,7 +173,7 @@
                     <c:set var="num" value="${book['number']}"/>
                     <ul style="display: inline-block; margin: 10px">
                         <li style="display: inline-block; margin: 10px">
-                            <div><img width="100" height="150" src="blob_print.jsp?num=${num}"></div>
+                            <div><img width="140" height="170" src="blob_print.jsp?num=${num}"></div>
                             <div><a href="book_info.jsp?num=${num}">${book['title']}</a> </div>
                             <div>${book['price']}</div>
                         </li>
@@ -185,7 +189,7 @@
                     <c:set var="num" value="${book['number']}"/>
                     <ul style="display: inline-block; margin: 10px">
                         <li style="display: inline-block; margin: 10px">
-                            <div><img width="100" height="150" src="blob_print.jsp?num=${num}"></div>
+                            <div><img width="140" height="170" src="blob_print.jsp?num=${num}"></div>
                             <div><a href="book_info.jsp?num=${num}">${book['title']}</a> </div>
                             <div>${book['price']}</div>
                         </li>
@@ -204,17 +208,13 @@
     <%
 
         request.setCharacterEncoding("utf-8");
-        Connection con=dbConnection.connect();
-        Statement st = con.createStatement();
-        ResultSet rs=st.executeQuery("select * from NOTICE");
-        int num2=0;
-        String title2="";
-        while (rs.next()) {
-            title2 = rs.getString(1);
-            num2=rs.getInt(3);
-            out.println("<a href=./notice_info.jsp?num="+num2+">"+title2+"</a><br>");
-        }
+        ArrayList<HashMap<String,String>> noticeList=new ArrayList<>();
+        noticeList= Notice.getIndexNotice();
     %>
+    <c:set var="noticeList" value="<%=noticeList%>"/>
+    <c:forEach var="notice" items="${noticeList}">
+        <p><a href="notice_info.jsp?num=${notice['num']}">${notice['title']}</a></p>
+    </c:forEach>
 
 <%--    책 검색 기능 구현 (마이페이지 서블릿 및 jsp 파일 생성--%>
 

@@ -81,6 +81,7 @@
                     <td><%=birth%></td>
                 </tr>
             </table>
+            <a href="/modify.jsp?username=<%=id%>">정보수정</a> <a href="/userDelete?username=<%=id%>">탈퇴</a>
         </c:when>
         <c:when test="${nav eq 'sell'}">
             <h1>판매중</h1>
@@ -102,7 +103,7 @@
                 <c:set var="num" value="${book['number']}"/>
                 <ul style="display: inline-block; margin: 10px">
                     <li style="display: inline-block; margin: 10px">
-                        <div><img width="100" height="150" src="blob_print.jsp?num=${num}"></div>
+                        <div><img width="140" height="170" src="blob_print.jsp?num=${num}"></div>
                         <div><a href="book_info.jsp?num=${num}">${book['title']}</a> </div>
                         <div>${book['price']}</div>
                     </li>
@@ -129,7 +130,7 @@
                 <c:set var="num" value="${book['number']}"/>
                 <ul style="display: inline-block; margin: 10px">
                     <li style="display: inline-block; margin: 10px">
-                        <div><img width="100" height="150" src="blob_print.jsp?num=${num}"></div>
+                        <div><img width="140" height="170" src="blob_print.jsp?num=${num}"></div>
                         <div><a href="book_info.jsp?num=${num}">${book['title']}</a> </div>
                         <div>${book['price']}</div>
                     </li>
@@ -137,7 +138,7 @@
             </c:forEach>
         </c:when>
     </c:choose>
-    <a href="/modify.jsp?username=<%=id%>">정보수정</a> <a href="/userDelete?username=<%=id%>">탈퇴</a>
+
 
 
 

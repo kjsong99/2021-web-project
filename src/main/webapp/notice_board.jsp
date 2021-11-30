@@ -1,8 +1,12 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.example.finalproject.dbConnection" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.DateFormat" %>
 <%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="java.sql.*" %><%--
+<%@ page import="java.sql.*" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.example.finalproject.Notice" %><%--
   Created by IntelliJ IDEA.
   User: song-gyeongjin
   Date: 2021/11/01
@@ -21,6 +25,7 @@
         location.href="notice_write.jsp"
     }
 </script>
+<jsp:include page="header.jsp"></jsp:include>
     <h1>공지사항</h1>
     <a href="notice_write.jsp">글쓰기</a>
     <form action="notice_board.jsp" method="get">
@@ -38,57 +43,44 @@
             <td>등록일</td>
         </tr>
         <%
-            SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
-            Connection con = null;
-            con = dbConnection.connect();
-            Statement st = con.createStatement();
-            String target="";
-            target=request.getParameter("target");
-            if(target==null){
-                ResultSet rs=st.executeQuery("select * from NOTICE");
-                while (rs.next()) {
-                    String title = rs.getString(1);
-                    int num=rs.getInt(3);
-                    String date=df.format(rs.getTimestamp(4));
-                    out.println("<tr>" +
-                            "<td>"+num+"</td>" +
-                            "<td><a href=notice_info.jsp?num="+num+">"+title+"</td>" +
-                            "<td>"+date+"</td>" +
-                            "</tr>");
-                }
-                st.close();
-                con.close();
-            }
-            else{
-                System.out.println(target);
-                con = dbConnection.connect();
-                String search=request.getParameter("search");
-                System.out.println(search);
-                String sql="select * from NOTICE WHERE "+target.trim()+" LIKE ?";
-                PreparedStatement ps=con.prepareStatement(sql);
-                System.out.println(target);
-                System.out.println(search);
-                ps.setString(1,'%'+search.trim()+'%');
-                System.out.println(ps.toString());
-                ResultSet rs=ps.executeQuery();
-                while (rs.next()) {
-                    String title = rs.getString(1);
-                    System.out.println(title);
-                    int num=rs.getInt(3);
-                    String date=df.format(rs.getTimestamp(4));
-                    out.println("<tr>" +
-                            "<td>"+num+"</td>" +
-                            "<td><a href=notice_info.jsp?num="+num+">"+title+"</td>" +
-                            "<td>"+date+"</td>" +
-                            "</tr>");
-                }
-                ps.close();
-                con.close();
-
-            }
-
+            String target=request.getParameter("target");
+            String search=request.getParameter("search");
         %>
-<%--공지사항 검색 기능 구현--%>
+        <c:set var="target" value="<%=target%>"/>
+        <c:set var="search" value="<%=search%>"/>
+
+        <c:choose>
+            <c:when test="${target eq null or search eq null}">
+                <%
+                    ArrayList<HashMap<String,String>> noticeList=new ArrayList<HashMap<String,String>>();
+                    noticeList= Notice.getNotice(1);
+
+                %>
+                <c:set var="noticeList" value="<%=noticeList%>"/>
+                <c:forEach var="notice" items="${noticeList}">
+                    <tr>
+                        <td>${notice['num']}</td>
+                        <td><a href="notice_info.jsp?num=${notice['num']}">${notice['title']}</a></td>
+
+                        <td>${notice['date']}</td>
+                    </tr>
+                </c:forEach>
+            </c:when>
+            <c:otherwise>
+                <%
+                    ArrayList<HashMap<String,String>> searchNoticeList=new ArrayList<HashMap<String,String>>();
+                    searchNoticeList= Notice.getSearchNotice(1,search,target);
+                %>
+                <c:set var="searchNoticeList" value="<%=searchNoticeList%>"/>
+                <c:forEach var="notice" items="${searchNoticeList}">
+                    <tr>
+                        <td>${notice['num']}</td>
+                        <td><a href="notice_info.jsp?num=${notice['num']}">${notice['title']}</a></td>
+                        <td>${notice['date']}</td>
+                    </tr>
+                </c:forEach>
+            </c:otherwise>
+        </c:choose>
     </table>
 </body>
 </html>

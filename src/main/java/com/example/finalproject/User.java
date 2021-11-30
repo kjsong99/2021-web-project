@@ -139,25 +139,25 @@ public class User {
         ps.executeUpdate();
     }
 
-    public static void userModify(String username,HashMap<String,String> userInfo) throws ParseException, IOException, SQLException {
-        SimpleDateFormat df1=new SimpleDateFormat("yyyy-MM-dd");
-        String name=userInfo.get("name");
-        String phone=userInfo.get("phone");
-        String sex=userInfo.get("sex");
-        Date birth=df1.parse(userInfo.get("birth"));
-        java.sql.Date sqlDate=new java.sql.Date(birth.getDate());
-        String nickname=userInfo.get("nickname");
-
-        Connection con=dbConnection.connect();
-        String query="update USER set NAME=?, PHONE=?, SEX=?, BIRTH=?, NICKNAME=? where USERNAME=?";
-        PreparedStatement ps=con.prepareStatement(query);
-        ps.setString(1,name);
-        ps.setString(2,phone);
-        ps.setString(3,sex);
-        ps.setDate(4,sqlDate);
-        ps.setString(5,nickname);
-
-        ps.executeUpdate();
-
-    }
+//    public static void userModify(String username,HashMap<String,String> userInfo) throws ParseException, IOException, SQLException {
+//        SimpleDateFormat df1=new SimpleDateFormat("yyyy-MM-dd");
+//        String name=userInfo.get("name");
+//        String phone=userInfo.get("phone");
+//        String sex=userInfo.get("sex");
+//        Date birth=df1.parse(userInfo.get("birth"));
+//        java.sql.Date sqlDate=new java.sql.Date(birth.getDate());
+//        String nickname=userInfo.get("nickname");
+//
+//        Connection con=dbConnection.connect();
+//        String query="update USER set NAME=?, PHONE=?, SEX=?, BIRTH=?, NICKNAME=? where USERNAME=?";
+//        PreparedStatement ps=con.prepareStatement(query);
+//        ps.setString(1,name);
+//        ps.setString(2,phone);
+//        ps.setString(3,sex);
+//        ps.setDate(4,sqlDate);
+//        ps.setString(5,nickname);
+//
+//        ps.executeUpdate();
+//
+//    }
 }

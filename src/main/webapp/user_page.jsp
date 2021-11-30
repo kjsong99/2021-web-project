@@ -137,7 +137,7 @@
             </c:forEach>
         </c:when>
     </c:choose>
-    <a href="/userModify?username=<%=id%>">정보수정</a> <a href="/userDelete?username=<%=id%>">탈퇴</a>
+    <a href="/modify.jsp?username=<%=id%>">정보수정</a> <a href="/userDelete?username=<%=id%>">탈퇴</a>
 
 
 

@@ -4,6 +4,8 @@ import oracle.jdbc.proxy.annotation.Pre;
 
 import java.io.IOException;
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -103,5 +105,59 @@ public class User {
         ps.close();
         con.close();
         return sold;
+    }
+
+    public static HashMap<String,String> getUser(String username) throws IOException, SQLException {
+        HashMap<String,String> user=new HashMap<String,String>();
+        Connection con=dbConnection.connect();
+        String query="select * from USER where USERNAME=?";
+        PreparedStatement ps=con.prepareStatement(query);
+        ps.setString(1,username);
+        ResultSet rs=ps.executeQuery();
+        if(rs.next()){
+            String name=rs.getString(2);
+            String phone=rs.getString(4);
+            String sex=rs.getString(5);
+            String birth= String.valueOf(rs.getTimestamp(6));
+            String nickname=rs.getString(8);
+            user.put("username",username);
+            user.put("name",name);
+            user.put("phone",phone);
+            user.put("sex",sex);
+            user.put("birth",birth);
+            user.put("nickname",nickname);
+        }
+        return user;
+    }
+
+    public static void passwordChange(String username,String newPwd) throws IOException, SQLException {
+        Connection con=dbConnection.connect();
+        String query="update USER set PWD=? where USERNAME=?";
+        PreparedStatement ps=con.prepareStatement(query);
+        ps.setString(1,newPwd);
+        ps.setString(2,username);
+        ps.executeUpdate();
+    }
+
+    public static void userModify(String username,HashMap<String,String> userInfo) throws ParseException, IOException, SQLException {
+        SimpleDateFormat df1=new SimpleDateFormat("yyyy-MM-dd");
+        String name=userInfo.get("name");
+        String phone=userInfo.get("phone");
+        String sex=userInfo.get("sex");
+        Date birth=df1.parse(userInfo.get("birth"));
+        java.sql.Date sqlDate=new java.sql.Date(birth.getDate());
+        String nickname=userInfo.get("nickname");
+
+        Connection con=dbConnection.connect();
+        String query="update USER set NAME=?, PHONE=?, SEX=?, BIRTH=?, NICKNAME=? where USERNAME=?";
+        PreparedStatement ps=con.prepareStatement(query);
+        ps.setString(1,name);
+        ps.setString(2,phone);
+        ps.setString(3,sex);
+        ps.setDate(4,sqlDate);
+        ps.setString(5,nickname);
+
+        ps.executeUpdate();
+
     }
 }

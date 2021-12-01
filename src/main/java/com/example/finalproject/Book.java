@@ -101,7 +101,7 @@ public class Book {
 
     public static int getBookCount() throws IOException, SQLException {
         int count=0;
-        String query="select coount(*) as count from BOOK";
+        String query="select count(*) as count from BOOK where SOLD=0";
         Connection con=dbConnection.connect();
         Statement st=con.createStatement();
         ResultSet rs=st.executeQuery(query);
@@ -114,7 +114,7 @@ public class Book {
 
     public static int getCategoryBookCount(String category) throws IOException, SQLException {
         int count=0;
-        String query="select count(*) as count from BOOK where CATEGORY=?";
+        String query="select count(*) as count from BOOK where CATEGORY=? AND SOLD=0";
         Connection con=dbConnection.connect();
         PreparedStatement ps=con.prepareStatement(query);
         ps.setString(1,category);
@@ -127,7 +127,7 @@ public class Book {
 
     public static int getBookSearchCount(String target,String search) throws IOException, SQLException {
         int count=0;
-        String query="select count(*) as count from BOOK where "+target+" like ?";
+        String query="select count(*) as count from BOOK where "+target+" like ? AND SOLD=0";
 
         Connection con=dbConnection.connect();
         PreparedStatement ps=con.prepareStatement(query);
@@ -142,7 +142,7 @@ public class Book {
 
     public static int getCategoryBookSearchCount(String category,String target,String search) throws IOException, SQLException {
         int count =0;
-        String query="select count(*) as count from BOOK where CATEGORY=? and "+target+" like ?";
+        String query="select count(*) as count from BOOK where CATEGORY=? and "+target+" like ? AMD SOLD=0";
         Connection con=dbConnection.connect();
         PreparedStatement ps=con.prepareStatement(query);
         ps.setString(1,category);

@@ -101,9 +101,16 @@
         String category=request.getParameter("category");
         String target=request.getParameter("target");
         String search=request.getParameter("search");
+        int count=0;
+        int pageNum=1;
+        if(request.getParameter("page")!=null){
+            pageNum= Integer.parseInt(request.getParameter("page"));
+        }
+
         System.out.println(search);
     %>
     <c:set var="category" value="<%=category%>"/>
+    <c:set var="page" value="<%=pageNum%>"/>
     <p>
         <c:choose>
             <c:when test="${category eq null}"><h3>전체</h3></c:when>
@@ -129,7 +136,8 @@
         <c:choose>
             <c:when test="${empty category or category eq '전체'}">
                 <%
-                    ArrayList<HashMap<String,String>> bookList= Book.getBook();
+                    ArrayList<HashMap<String,String>> bookList= Book.getBook(pageNum);
+                    count=Book.getBookCount();
                 %>
                 <c:set var="sell" value="<%=bookList%>"/>
                 <c:forEach var="book" items="${sell}">
@@ -145,7 +153,8 @@
             </c:when>
             <c:otherwise>
                 <%
-                    ArrayList<HashMap<String,String>> categoryBookList= Book.getCategoryBook(category);
+                    ArrayList<HashMap<String,String>> categoryBookList= Book.getCategoryBook(category,pageNum);
+                    count=Book.getCategoryBookCount(category);
                 %>
                 <c:set var="sell" value="<%=categoryBookList%>"/>
                 <c:forEach var="book" items="${sell}">
@@ -166,7 +175,8 @@
         <c:choose>
             <c:when test="${category eq 'null' or category eq '전체'}">
                 <%
-                    ArrayList<HashMap<String,String>> bookList= Book.getBookSearch(search,target);
+                    ArrayList<HashMap<String,String>> bookList= Book.getBookSearch(search,target,pageNum);
+                    count=Book.getBookSearchCount(target,search);
                 %>
                 <c:set var="sell" value="<%=bookList%>"/>
                 <c:forEach var="book" items="${sell}">
@@ -182,7 +192,8 @@
             </c:when>
             <c:otherwise>
                 <%
-                    ArrayList<HashMap<String,String>> categoryBookList= Book.getCategoryBookSearch(category,search,target);
+                    ArrayList<HashMap<String,String>> categoryBookList= Book.getCategoryBookSearch(category,search,target,pageNum);
+                    count=Book.getCategoryBookSearchCount(category,target,search);
                 %>
                 <c:set var="sell" value="<%=categoryBookList%>"/>
                 <c:forEach var="book" items="${sell}">
@@ -198,6 +209,92 @@
             </c:otherwise>
         </c:choose>
     </c:if>
+<%--    <c:choose>--%>
+<%--        <c:when test="${category eq null or category eq '전체'}">--%>
+<%--            <c:choose>--%>
+<%--                <c:when test="${empty search or empty target}">--%>
+<%--                    <%--%>
+
+<%--                    %>--%>
+<%--                </c:when>--%>
+<%--                <c:otherwise>--%>
+<%--                    <%--%>
+
+<%--                    %>--%>
+<%--                </c:otherwise>--%>
+<%--            </c:choose>--%>
+<%--        </c:when>--%>
+<%--        <c:otherwise>--%>
+<%--            <c:choose>--%>
+<%--                <c:when test="${empty search or empty target}">--%>
+<%--                    <%--%>
+
+<%--                    %>--%>
+<%--                </c:when>--%>
+<%--                <c:otherwise>--%>
+<%--                    <%--%>
+
+<%--                    %>--%>
+<%--                </c:otherwise>--%>
+<%--            </c:choose>--%>
+<%--        </c:otherwise>--%>
+<%--    </c:choose>--%>
+    <c:set var="count" value="<%=count%>"/>
+    <c:choose>
+        <c:when test="${count%8 eq 0}">
+            <c:forEach var="i" step="1" begin="1" end="${count/8}">
+                <c:choose>
+                    <c:when test="${category eq null or category eq '전체'}">
+                        <c:choose>
+                            <c:when test="${search eq null or target eq null}">
+                                <a href="/index.jsp?page=${i}">${i}</a>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="/index.jsp?page=${i}&search=${search}&target=${target}}">${i}</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:when>
+                    <c:otherwise>
+                        <c:choose>
+                            <c:when test="${search eq null or target eq null}">
+                                <a href="/index.jsp?page=${i}&category=${category}">${i}</a>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="/index.jsp?page=${i}&category=${category}&search=${search}&target=${target}">${i}</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:otherwise>
+                </c:choose>
+
+            </c:forEach>
+        </c:when>
+        <c:otherwise>
+            <c:forEach var="i" step="1" begin="0" end="${(count/8)}">
+                <c:choose>
+                    <c:when test="${category eq null or category eq '전체'}">
+                        <c:choose>
+                            <c:when test="${search eq null or target eq null}">
+                                <a href="/index.jsp?page=${i+1}">${i+1}</a>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="/index.jsp?page=${i+1}&search=${search}&target=${target}}">${i+1}</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:when>
+                    <c:otherwise>
+                        <c:choose>
+                            <c:when test="${search eq null or target eq null}">
+                                <a href="/index.jsp?page=${i+1}&category=${category}">${i+1}</a>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="/index.jsp?page=${i+1}&category=${category}&search=${search}&target=${target}">${i+1}</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:otherwise>
+                </c:choose>
+            </c:forEach>
+        </c:otherwise>
+    </c:choose>
 
 
 

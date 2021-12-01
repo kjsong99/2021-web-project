@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.sql.Connection" %>
 <%@ page import="com.example.finalproject.dbConnection" %>
 <%@ page import="java.sql.Statement" %>
@@ -47,9 +48,12 @@
     }
 
     out.println("<div><img width=150 height=200 src=\"./blob_print.jsp?num="+num+"\"/></div>");
-
-
+    int auth= 0;
+    if(session.getAttribute("auth")!=null){
+        auth= (int) session.getAttribute("auth");
+    }
 %>
+<c:set value="<%=auth%>" var="auth"/>
 <div>
     <p><%=title%></p>
     <p><%=price%></p>
@@ -61,7 +65,10 @@
     <p><%=username%></p>
 
 </div>
-<div><a href="/book_modify.jsp?num=<%=num%>">수정</a> <a href="/bookDelete?num=<%=num%>">삭제</a> <a href="bookSold?num=<%=num%>">판매완료</a> </div>
+<c:if test="${auth>1}">
+    <div><a href="/book_modify.jsp?num=<%=num%>">수정</a> <a href="/bookDelete?num=<%=num%>">삭제</a> <a href="bookSold?num=<%=num%>">판매완료</a> </div>
+</c:if>
+
 <%--책 조회, 삭제, 수정, 목록 기능 구현--%>
 </body>
 </html>

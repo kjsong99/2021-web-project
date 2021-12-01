@@ -38,14 +38,16 @@ public class User {
         return info;
     }
 
-    public static ArrayList<HashMap<String,String>> sellBook(String username) throws IOException, SQLException { //판매중인 책 arrayList
+    public static ArrayList<HashMap<String,String>> sellBook(String username,int page) throws IOException, SQLException { //판매중인 책 arrayList
         ArrayList<HashMap<String,String>> sell=new ArrayList<HashMap<String,String>>();
         Connection con=dbConnection.connect();
-        String query="select * from BOOK where SOLD=0 AND USERNAME=?";
+        int start=(page-1)*8;
+        int end=page*8;
+        String query="select * from BOOK where SOLD=0 AND USERNAME=? limit ?,?";
         PreparedStatement ps=con.prepareStatement(query);
-        System.out.println(username);
         ps.setString(1,username);
-        System.out.println(ps.toString());
+        ps.setInt(2,start);
+        ps.setInt(3,end);
         ResultSet rs=ps.executeQuery();
         while(rs.next()){
             HashMap<String,String> book=new HashMap<String,String>();
@@ -73,14 +75,30 @@ public class User {
 
     }
 
-    public static ArrayList<HashMap<String,String>> soldBook(String username) throws IOException, SQLException { //판매완료 책 arrayList
+    public static int sellBookCount(String username) throws IOException, SQLException {
+        int count=0;
+        Connection con=dbConnection.connect();
+        String query="select count(*) as count from BOOK where SOLD=0 AND USERNAME=?";
+        PreparedStatement ps=con.prepareStatement(query);
+        ps.setString(1,username);
+        ResultSet rs=ps.executeQuery();
+        if(rs.next()){
+            count=rs.getInt(1);
+            System.out.println(count);
+        }
+        return count;
+    }
+
+    public static ArrayList<HashMap<String,String>> soldBook(String username,int page) throws IOException, SQLException { //판매완료 책 arrayList
         ArrayList<HashMap<String,String>> sold=new ArrayList<HashMap<String,String>>();
         Connection con=dbConnection.connect();
-        String query="select * from BOOK where SOLD=1 AND USERNAME=?";
+        int start=(page-1)*8;
+        int end=page*8;
+        String query="select * from BOOK where SOLD=1 AND USERNAME=? limit ?,?";
         PreparedStatement ps=con.prepareStatement(query);
-        System.out.println(username);
         ps.setString(1,username);
-        System.out.println(ps.toString());
+        ps.setInt(2,start);
+        ps.setInt(3,end);
         ResultSet rs=ps.executeQuery();
         while(rs.next()){
             HashMap<String,String> book=new HashMap<String,String>();
@@ -105,6 +123,20 @@ public class User {
         ps.close();
         con.close();
         return sold;
+    }
+
+    public static int soldBookCount(String username) throws IOException, SQLException {
+        int count=0;
+        Connection con=dbConnection.connect();
+        String query="select count(*) as count from BOOK where SOLD=1 AND USERNAME=?";
+        PreparedStatement ps=con.prepareStatement(query);
+        ps.setString(1,username);
+        ResultSet rs=ps.executeQuery();
+        if(rs.next()){
+            count=rs.getInt(1);
+            System.out.println(count);
+        }
+        return count;
     }
 
     public static HashMap<String,String> getUser(String username) throws IOException, SQLException {

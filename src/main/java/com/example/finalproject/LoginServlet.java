@@ -51,6 +51,7 @@ public class LoginServlet extends HttpServlet {
                 String phone = rs.getString("phone");
                 String sex = rs.getString("sex");
                 String password=rs.getString("pwd");
+                int auth=rs.getInt("author");
                 System.out.println(password);
                 System.out.println(pwd);
 
@@ -60,6 +61,7 @@ public class LoginServlet extends HttpServlet {
                     session.setAttribute("name", name);
                     session.setAttribute("phone", phone);
                     session.setAttribute("sex", sex);
+                    session.setAttribute("auth",auth);
                     response.sendRedirect("/");
 
                 }

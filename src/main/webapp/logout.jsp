@@ -13,6 +13,7 @@
 <body>
   <%
       session.removeAttribute("id");
+      session.removeAttribute("auth");
       response.sendRedirect("/");
   %>
 </body>

@@ -62,6 +62,10 @@
 
 
 <%
+    int auth= 0;
+    if(session.getAttribute("auth")!=null){
+        auth= (int) session.getAttribute("auth");
+    }
     if(session.getAttribute("id")==null){
         out.println(
                 "<p><button onclick=\"login()\">로그인</button> " +
@@ -76,6 +80,7 @@
         );
     }
 %>
+<c:set value="<%=auth%>" var="auth"/>
 
 <%--<div class="left">--%>
 <%--    <p>카테고리</p>--%>
@@ -116,7 +121,11 @@
             <c:when test="${category eq null}"><h3>전체</h3></c:when>
             <c:otherwise><%=category%></c:otherwise>
         </c:choose>
-    <button onclick="bookWrite()" style="float: right; margin: 10px;">등록</button></p>
+<%--    <c:set var="auth" value="<%=(int)request.getSession().getAttribute("auth")%>"/>--%>
+    <c:if test="${auth > 1}">
+        <button onclick="bookWrite()" style="float: right; margin: 10px;">등록</button></p>
+    </c:if>
+
     <p>
     <form action="index.jsp" method="get">
         <select name="target">
@@ -239,6 +248,7 @@
 <%--            </c:choose>--%>
 <%--        </c:otherwise>--%>
 <%--    </c:choose>--%>
+    <br>
     <c:set var="count" value="<%=count%>"/>
     <c:choose>
         <c:when test="${count%8 eq 0}">

@@ -25,9 +25,18 @@
         location.href="notice_write.jsp"
     }
 </script>
+<%
+    int auth= 0;
+    if(session.getAttribute("auth")!=null){
+        auth= (int) session.getAttribute("auth");
+    }
+%>
+<c:set value="<%=auth%>" var="auth"/>
 <jsp:include page="header.jsp"></jsp:include>
     <h1>공지사항</h1>
-    <a href="notice_write.jsp">글쓰기</a>
+    <c:if test="${auth > 1}">
+        <a href="notice_write.jsp">글쓰기</a>
+    </c:if>
     <form action="notice_board.jsp" method="get">
         <select name="target">
             <option value="TITLE" selected>제목</option>

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="java.sql.Statement" %>
 <%@ page import="com.example.finalproject.dbConnection" %>
@@ -36,12 +37,20 @@
         content=rs.getString(5);
 
     }
+    int auth= 0;
+    if(session.getAttribute("auth")!=null){
+        auth= (int) session.getAttribute("auth");
+    }
 %>
+<c:set value="<%=auth%>" var="auth"/>
 <h3><%=title%></h3>
 <div><%=username%></div>
 <div><%=date%></div>
 <div><%=content%></div>
-<div><a href="./notice_modify.jsp?num=<%=num%>">수정</a> <a href="./noticeDelete?num=<%=num%>">삭제</a> </div>
+<c:if test="${auth>1}">
+    <div><a href="./notice_modify.jsp?num=<%=num%>">수정</a> <a href="./noticeDelete?num=<%=num%>">삭제</a> </div>
+</c:if>
+
 
 
 <%--목록, 삭제, 수정, 이전글, 다음글 구현--%>

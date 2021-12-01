@@ -30,13 +30,19 @@
         String sex="";
         String birth="";
         String nickname="";
+        int count=0;
          String nav=request.getParameter("nav").trim();
+        int pageNum=1;
+        if(request.getParameter("page")!=null){
+            pageNum= Integer.parseInt(request.getParameter("page"));
+        }
         System.out.println(nav);
         String id= String.valueOf(session.getAttribute("id"));
         Connection con= dbConnection.connect();
         String user="user";
         %>
     <c:set var="nav" value="<%=nav%>"></c:set>
+    <c:set var="page" value="<%=pageNum%>"/>
     <c:choose>
         <c:when test="${nav eq 'user'}">
             <h1>유저정보</h1>
@@ -83,14 +89,9 @@
                 String title="";
                 String price="";
                 int num=0;
-                ArrayList<HashMap<String,String>> sell=User.sellBook(id);
-//                for(int i=0;i<sell.size();i++){
-//                    HashMap<String,String> book= sell.get(i);
-//                    title=book.get("title");
-//                    price=book.get("price");
-//                    num= Integer.parseInt(book.get("number"));
-//                    request.setAttribute("num",num);
-//                }
+
+                ArrayList<HashMap<String,String>> sell=User.sellBook(id,pageNum);
+                count=User.sellBookCount(id);
             %>
             <c:set var="sell" value="<%=sell%>"/>
             <c:forEach var="book" items="${sell}">
@@ -110,14 +111,8 @@
                 String title="";
                 String price="";
                 int num=0;
-                ArrayList<HashMap<String,String>> sell=User.soldBook(id);
-//                for(int i=0;i<sell.size();i++){
-//                    HashMap<String,String> book= sell.get(i);
-//                    title=book.get("title");
-//                    price=book.get("price");
-//                    num= Integer.parseInt(book.get("number"));
-//                    request.setAttribute("num",num);
-//                }
+                ArrayList<HashMap<String,String>> sell=User.soldBook(id,pageNum);
+                count=User.soldBookCount(id);
             %>
             <c:set var="sell" value="<%=sell%>"/>
             <c:forEach var="book" items="${sell}">
@@ -132,10 +127,20 @@
             </c:forEach>
         </c:when>
     </c:choose>
-
-
-
-
+    <br>
+    <c:set var="count" value="<%=count%>"/>
+    <c:choose>
+        <c:when test="${count%8 eq 0}">
+            <c:forEach var="i" step="1" begin="1" end="${count/8}">
+                <a href="user_page.jsp?nav=${nav}&page=${i}">${i}</a>
+            </c:forEach>
+        </c:when>
+        <c:otherwise>
+            <c:forEach var="i" step="1" begin="0" end="${count/8}">
+                <a href="user_page.jsp?nav=${nav}&page=${i+1}">${i+1}</a>
+            </c:forEach>
+        </c:otherwise>
+    </c:choose>
 </div>
 
 </body>

@@ -32,9 +32,14 @@ public class Notice {
 
     public static ArrayList<HashMap<String,String>> getNotice(int page) throws IOException, SQLException {
         ArrayList<HashMap<String,String>> noticeList=new ArrayList<HashMap<String,String>>();
+        int start=(page-1)*10;
+        int end=(page)*10;
         Connection con=dbConnection.connect();
         Statement st = con.createStatement();
-        ResultSet rs=st.executeQuery("select * from NOTICE");
+        PreparedStatement ps=con.prepareStatement("select * from NOTICE limit ?,?");
+        ps.setInt(1,start);
+        ps.setInt(2,end);
+        ResultSet rs=ps.executeQuery();
         int num=0;
         String title="";
         String date="";
@@ -56,9 +61,13 @@ public class Notice {
 
     public static ArrayList<HashMap<String,String>> getSearchNotice(int page,String search,String target) throws IOException, SQLException {
         ArrayList<HashMap<String,String>> searchNoticeList=new ArrayList<HashMap<String,String>>();
+        int start=(page-1)*10;
+        int end=(page)*10;
         Connection con=dbConnection.connect();
-        PreparedStatement ps=con.prepareStatement("select * from NOTICE where "+target+" like ?");
+        PreparedStatement ps=con.prepareStatement("select * from NOTICE where "+target+" like ? limit ?,?");
         ps.setString(1,'%'+search+'%');
+        ps.setInt(2,start);
+        ps.setInt(3,end);;
         ResultSet rs=ps.executeQuery();
         int num=0;
         String title="";

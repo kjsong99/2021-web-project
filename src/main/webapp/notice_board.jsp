@@ -43,17 +43,24 @@
             <td>등록일</td>
         </tr>
         <%
+            int count=0;
             String target=request.getParameter("target");
             String search=request.getParameter("search");
+            int pageNum=1;
+          if(request.getParameter("page")!=null){
+                pageNum= Integer.parseInt(request.getParameter("page"));
+          }
         %>
         <c:set var="target" value="<%=target%>"/>
         <c:set var="search" value="<%=search%>"/>
+        <c:set var="pageNum" value="<%=pageNum%>"/>
 
         <c:choose>
             <c:when test="${target eq null or search eq null}">
                 <%
                     ArrayList<HashMap<String,String>> noticeList=new ArrayList<HashMap<String,String>>();
-                    noticeList= Notice.getNotice(1);
+                    noticeList= Notice.getNotice(pageNum);
+                    count=Notice.getNoticeCount();
 
                 %>
                 <c:set var="noticeList" value="<%=noticeList%>"/>
@@ -69,7 +76,8 @@
             <c:otherwise>
                 <%
                     ArrayList<HashMap<String,String>> searchNoticeList=new ArrayList<HashMap<String,String>>();
-                    searchNoticeList= Notice.getSearchNotice(1,search,target);
+                    searchNoticeList= Notice.getSearchNotice(pageNum,search,target);
+                    count=Notice.getSearchNoticeCount(target,search);
                 %>
                 <c:set var="searchNoticeList" value="<%=searchNoticeList%>"/>
                 <c:forEach var="notice" items="${searchNoticeList}">
@@ -81,6 +89,39 @@
                 </c:forEach>
             </c:otherwise>
         </c:choose>
+        <c:set var="count" value="<%=count%>"/>
+
     </table>
+    <div style="margin-left: 50px">
+        <c:choose>
+            <c:when test="${count%10 eq 0}">
+                <c:forEach begin="1" end="${count/10}" step="1" var="i">
+                    <c:choose>
+                        <c:when test="${search eq null or target eq null}">
+                            <a href="notice_board.jsp?page=${i}">${i}</a>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="notice_board.jsp?page=${i}&search=${search}&target=${target}">${i}</a>
+                        </c:otherwise>
+                    </c:choose>
+
+                </c:forEach>
+            </c:when>
+            <c:otherwise>
+                <c:forEach begin="1" end="${count/10+1}" step="1" var="i">
+                    <c:choose>
+                        <c:when test="${search eq null or target eq null}">
+                            <a href="notice_board.jsp?page=${i}">${i}</a>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="notice_board.jsp?page=${i}&search=${search}&target=${target}">${i}</a>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+            </c:otherwise>
+        </c:choose>
+    </div>
+
+
 </body>
 </html>

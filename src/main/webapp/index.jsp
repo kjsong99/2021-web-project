@@ -53,7 +53,7 @@
         }
 
         function notice(){
-            location.href="notice_board.jsp"
+            location.href="notice_board.jsp?page=1"
         }
     </script>
 </head>

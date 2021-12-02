@@ -70,17 +70,15 @@
 <c:if test="${auth>1}">
     <div><a href="/book_modify.jsp?num=<%=num%>">수정</a> <a href="/bookDelete?num=<%=num%>">삭제</a> <a href="bookSold?num=<%=num%>">판매완료</a> </div>
 </c:if>
-<c:if test="${auth<2}">
-    <c:if test="${auth eq 1}">
-        <%
-            int sold= Book.isBookSold(num);
-        %>
-        <c:set value="<%=sold%>" var="sold"/>
-        <c:choose>
-            <c:when test="${sold eq 1}">판매완료  </c:when>
-            <c:when test="${sold eq 0}"><a href="/bookBuy?num=<%=num%>">구매</a></c:when>
-        </c:choose>
-    </c:if>
+<c:if test="${auth eq 1}">
+    <%
+        int sold= Book.isBookSold(num);
+    %>
+    <c:set value="<%=sold%>" var="sold"/>
+    <c:choose>
+        <c:when test="${sold eq 1}">판매완료  </c:when>
+        <c:when test="${sold eq 0}"><a href="/bookBuy?num=<%=num%>">구매</a></c:when>
+    </c:choose>
     <%
         String id= String.valueOf(session.getAttribute("id"));
         int exist=User.findCart(id,num);
@@ -96,6 +94,8 @@
         </c:when>
     </c:choose>
 </c:if>
+<br>
+<a href="/index.jsp">목록</a>
 
 <%--책 조회, 삭제, 수정, 목록 기능 구현--%>
 </body>

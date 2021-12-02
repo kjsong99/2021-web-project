@@ -50,6 +50,8 @@
 <c:if test="${auth>1}">
     <div><a href="./notice_modify.jsp?num=<%=num%>">수정</a> <a href="./noticeDelete?num=<%=num%>">삭제</a> </div>
 </c:if>
+<br>
+<a href="notice_board.jsp">목록</a>
 
 
 

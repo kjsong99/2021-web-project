@@ -30,7 +30,7 @@ public class Notice {
         return noticeList;
     }
 
-    public static ArrayList<HashMap<String,String>> getNotice(int page) throws IOException, SQLException {
+    public static ArrayList<HashMap<String,String>> getNoticeList(int page) throws IOException, SQLException {
         ArrayList<HashMap<String,String>> noticeList=new ArrayList<HashMap<String,String>>();
         int start=(page-1)*10;
         int end=(page)*10;

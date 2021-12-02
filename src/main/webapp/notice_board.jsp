@@ -68,7 +68,7 @@
             <c:when test="${target eq null or search eq null}">
                 <%
                     ArrayList<HashMap<String,String>> noticeList=new ArrayList<HashMap<String,String>>();
-                    noticeList= Notice.getNotice(pageNum);
+                    noticeList= Notice.getNoticeList(pageNum);
                     count=Notice.getNoticeCount();
 
                 %>
@@ -130,6 +130,7 @@
             </c:otherwise>
         </c:choose>
     </div>
+
 
 
 </body>

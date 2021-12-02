@@ -157,7 +157,7 @@ public class Book {
 
     public static int getCategoryBookSearchCount(String category,String target,String search) throws IOException, SQLException {
         int count =0;
-        String query="select count(*) as count from BOOK where CATEGORY=? and "+target+" like ? AMD SOLD=0";
+        String query="select count(*) as count from BOOK where CATEGORY=? and "+target+" like ? AND SOLD=0";
         Connection con=dbConnection.connect();
         PreparedStatement ps=con.prepareStatement(query);
         ps.setString(1,category);
@@ -169,4 +169,27 @@ public class Book {
 
         return count;
     }
+
+    public static void bookBuy(int num) throws IOException, SQLException {
+        String query="update BOOK set SOLD=1 where NUMBER=?";
+        Connection con=dbConnection.connect();
+        PreparedStatement ps=con.prepareStatement(query);
+        ps.setInt(1,num);
+        ps.executeUpdate();
+    }
+
+    public static int isBookSold(int num) throws IOException, SQLException {
+        int sold=0;
+        String query="select SOLD from BOOK where NUMBER=?";
+        Connection con=dbConnection.connect();
+        PreparedStatement ps=con.prepareStatement(query);
+        ps.setInt(1,num);
+        ResultSet rs=ps.executeQuery();
+        if(rs.next()){
+            sold=rs.getInt(1);
+        }
+        return sold;
+    }
+
+
 }

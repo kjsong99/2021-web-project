@@ -103,7 +103,10 @@
 
     <%
         request.setCharacterEncoding("utf-8");
-        String category=request.getParameter("category");
+        String category="전체";
+        if(request.getParameter("category")!=null){
+            category=request.getParameter("category");
+        }
         String target=request.getParameter("target");
         String search=request.getParameter("search");
         int count=0;
@@ -119,7 +122,7 @@
     <p>
         <c:choose>
             <c:when test="${category eq null}"><h3>전체</h3></c:when>
-            <c:otherwise><%=category%></c:otherwise>
+            <c:otherwise><h3><%=category%></h3></c:otherwise>
         </c:choose>
 <%--    <c:set var="auth" value="<%=(int)request.getSession().getAttribute("auth")%>"/>--%>
     <c:if test="${auth > 1}">

@@ -19,6 +19,7 @@
             <li><a href="user_page.jsp?nav=user">유저정보</a></li>
             <li><a href="user_page.jsp?nav=sold">판매내역</a></li>
             <li><a href="user_page.jsp?nav=sell">판매중</a></li>
+            <li><a href="user_page.jsp?nav=cart">찜목록</a></li>
         </ul>
     </nav>
 
@@ -115,6 +116,26 @@
                 count=User.soldBookCount(id);
             %>
             <c:set var="sell" value="<%=sell%>"/>
+            <c:forEach var="book" items="${sell}">
+                <c:set var="num" value="${book['number']}"/>
+                <ul style="display: inline-block; margin: 10px">
+                    <li style="display: inline-block; margin: 10px">
+                        <div><img width="140" height="170" src="blob_print.jsp?num=${num}"></div>
+                        <div><a href="book_info.jsp?num=${num}">${book['title']}</a> </div>
+                        <div>${book['price']}</div>
+                    </li>
+                </ul>
+            </c:forEach>
+        </c:when>
+        <c:when test="${nav eq 'cart'}">
+            <%
+                String title="";
+                String price="";
+                int num=0;
+                ArrayList<HashMap<String,String>> cartList=User.getCartBook(id,pageNum);
+                count=User.cartBookCount(id);
+            %>
+            <c:set var="sell" value="<%=cartList%>"/>
             <c:forEach var="book" items="${sell}">
                 <c:set var="num" value="${book['number']}"/>
                 <ul style="display: inline-block; margin: 10px">

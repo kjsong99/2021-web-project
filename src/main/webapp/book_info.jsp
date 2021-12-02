@@ -3,7 +3,9 @@
 <%@ page import="com.example.finalproject.dbConnection" %>
 <%@ page import="java.sql.Statement" %>
 <%@ page import="java.sql.ResultSet" %>
-<%@ page import="java.sql.Timestamp" %><%--
+<%@ page import="java.sql.Timestamp" %>
+<%@ page import="com.example.finalproject.User" %>
+<%@ page import="com.example.finalproject.Book" %><%--
   Created by IntelliJ IDEA.
   User: song-gyeongjin
   Date: 2021/11/17
@@ -67,6 +69,32 @@
 </div>
 <c:if test="${auth>1}">
     <div><a href="/book_modify.jsp?num=<%=num%>">수정</a> <a href="/bookDelete?num=<%=num%>">삭제</a> <a href="bookSold?num=<%=num%>">판매완료</a> </div>
+</c:if>
+<c:if test="${auth<2}">
+    <c:if test="${auth eq 1}">
+        <%
+            int sold= Book.isBookSold(num);
+        %>
+        <c:set value="<%=sold%>" var="sold"/>
+        <c:choose>
+            <c:when test="${sold eq 1}">판매완료  </c:when>
+            <c:when test="${sold eq 0}"><a href="/bookBuy?num=<%=num%>">구매</a></c:when>
+        </c:choose>
+    </c:if>
+    <%
+        String id= String.valueOf(session.getAttribute("id"));
+        int exist=User.findCart(id,num);
+        System.out.println(exist);
+    %>
+    <c:set var="exist" value="<%=exist%>"/>
+    <c:choose>
+        <c:when test="${exist eq 0}">
+            <a href="/cartAdd?num=<%=num%>">찜하기</a>
+        </c:when>
+        <c:when test="${exist eq 1}">
+            <a href="/cartDelete?num=<%=num%>">찜해제</a>
+        </c:when>
+    </c:choose>
 </c:if>
 
 <%--책 조회, 삭제, 수정, 목록 기능 구현--%>

@@ -125,6 +125,53 @@ public class User {
         return sold;
     }
 
+    public static ArrayList<HashMap<String,String>> getCartBook(String username,int page) throws IOException, SQLException {
+        ArrayList<HashMap<String,String>> cartList=new ArrayList<HashMap<String,String>>();
+        int start = (page-1)*8;
+        int end=page*8;
+        String query="select * from BOOK where NUMBER in (select NUMBER from CART where USERNAME=?) limit ?,?";
+        Connection con=dbConnection.connect();
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1,username);
+        ps.setInt(2,start);
+        ps.setInt(3,end);
+        ResultSet rs=ps.executeQuery();
+        while (rs.next()){
+            HashMap<String,String> book=new HashMap<String,String>();
+            String title=rs.getString(1);
+            String price= String.valueOf(rs.getInt(2));
+            String writer=rs.getString(3);
+            String category=rs.getString(4);
+            String date= String.valueOf(rs.getTimestamp(5));
+            String company=rs.getString(6);
+            String status=rs.getString(7);
+            String number= String.valueOf(rs.getInt(10));
+            book.put("title",title);
+            book.put("price",price);
+            book.put("writer",writer);
+            book.put("category",category);
+            book.put("date",date);
+            book.put("company",company);
+            book.put("status",status);
+            book.put("number",number);
+            cartList.add(book);
+        }
+        return cartList;
+    }
+
+    public static int cartBookCount(String username) throws IOException, SQLException {
+        int count=0;
+        Connection con=dbConnection.connect();
+        String query="select count(*) as count from BOOK where NUMBER in (select NUMBER from CART where USERNAME=?)";
+        PreparedStatement ps=con.prepareStatement(query);
+        ps.setString(1,username);
+        ResultSet rs=ps.executeQuery();
+        if(rs.next()){
+            count=rs.getInt(1);
+        }
+        return count;
+    }
+
     public static int soldBookCount(String username) throws IOException, SQLException {
         int count=0;
         Connection con=dbConnection.connect();
@@ -162,6 +209,56 @@ public class User {
         return user;
     }
 
+    public static ArrayList<Integer> getCart(String username,int page) throws IOException, SQLException {
+        ArrayList<Integer> cart=new ArrayList<Integer>();
+        String query="select * from CART where USERNAME=?";
+        Connection con=dbConnection.connect();
+        PreparedStatement ps=con.prepareStatement(query);
+        ps.setString(1,username);
+        ResultSet rs=ps.executeQuery();
+
+        while (rs.next()){
+            int num=rs.getInt(2);
+            cart.add(num);
+        }
+        return cart;
+    }
+
+    public static void addCart(String username,int num) throws IOException, SQLException {
+        String query="insert into CART (USERNAME,NUMBER) VALUES (?,?)";
+        Connection con=dbConnection.connect();
+        PreparedStatement ps=con.prepareStatement(query);
+        ps.setString(1,username);
+        ps.setInt(2,num);
+        ps.executeUpdate();
+    }
+
+    public static void deleteCart(String username,int num) throws IOException, SQLException {
+        String query="delete from CART where USERNAME=? and NUMBER=?";
+        Connection con=dbConnection.connect();
+        PreparedStatement ps=con.prepareStatement(query);
+        ps.setString(1,username);
+        ps.setInt(2,num);
+        ps.executeUpdate();
+    }
+
+    public static int findCart(String username,int num) throws IOException, SQLException {
+        int exist=0;
+        String query="select exists(select * from CART where USERNAME=? and NUMBER=?) as exist";
+        Connection con=dbConnection.connect();
+        PreparedStatement ps=con.prepareStatement(query);
+        ps.setString(1,username);
+        ps.setInt(2,num);
+        ResultSet rs= ps.executeQuery();
+        System.out.println(ps.toString());
+
+        if(rs.next()){
+            exist=rs.getInt(1);
+            System.out.println(exist);
+        }
+        return exist;
+    }
+
     public static void passwordChange(String username,String newPwd) throws IOException, SQLException {
         Connection con=dbConnection.connect();
         String query="update USER set PWD=? where USERNAME=?";
@@ -192,4 +289,5 @@ public class User {
 //        ps.executeUpdate();
 //
 //    }
+
 }

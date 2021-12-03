@@ -35,7 +35,7 @@ public class BookWriteServlet extends HttpServlet {
             String fileName = "";
             FileInputStream fis;
             int maxSize = 1024 * 1024 * 100;
-            String realPath = session.getServletContext().getRealPath("/upload");
+            String realPath ="/Users/song-gyeongjin/2021-web-project/target/upload";
             MultipartRequest multipartRequest = new MultipartRequest(request, realPath, maxSize, "utf-8", new DefaultFileRenamePolicy());
 
             String title=multipartRequest.getParameter("title");

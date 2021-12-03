@@ -10,7 +10,7 @@ public class dbConnection {
     public static Connection connect() throws IOException {
         Connection conn=null;
         Properties pro=new Properties();
-        String path="C:\\Users\\ycl62.000\\2021-web-project\\src\\main\\webapp\\config\\conn.properties";
+        String path="/Users/song-gyeongjin/jsp/finalProject/src/main/webapp/config/conn.properties";
         FileInputStream fis=new FileInputStream(path);
         pro.load(new BufferedInputStream(fis));
 

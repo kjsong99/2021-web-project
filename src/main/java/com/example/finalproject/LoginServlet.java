@@ -66,10 +66,10 @@ public class LoginServlet extends HttpServlet {
 
                 }
                 else{
-                    writer.println("<script>alert('비밀번호가 틀렸습니다.'); location.href='/';</script>");
+                    writer.println("<script>alert('비밀번호가 틀렸습니다.'); location.href='/login.jsp';</script>");
                 }
             } else {
-                writer.println("<script>alert('아이디가 존재하지 않습니다..'); location.href='/';</script>");
+                writer.println("<script>alert('아이디가 존재하지 않습니다.'); location.href='/login.jsp';</script>");
 
             }
 

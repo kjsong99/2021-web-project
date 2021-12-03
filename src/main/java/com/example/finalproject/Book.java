@@ -13,7 +13,7 @@ public class Book {
         int start=(page-1)*8;
         int end=page*8;
         Connection con= dbConnection.connect();
-        String query="select * from BOOK where SOLD=0 limit ?,?";
+        String query="select * from BOOK where SOLD=0 order by DATE desc limit ?,? ";
         PreparedStatement ps=con.prepareStatement(query);
         ps.setInt(1,start);
         ps.setInt(2,end);
@@ -37,7 +37,7 @@ public class Book {
         int start=(page-1)*8;
         int end=page*8;
         Connection con=dbConnection.connect();
-        String query="select * from BOOK where SOLD=0 AND CATEGORY=? limit ?,?";
+        String query="select * from BOOK where SOLD=0 AND CATEGORY=? order by DATE desc limit ?,?";
         PreparedStatement ps=con.prepareStatement(query);
         ps.setString(1,category);
         ps.setInt(2,start);
@@ -64,7 +64,7 @@ public class Book {
         int start=(page-1)*8;
         int end=page*8;
         Connection con= dbConnection.connect();
-        String query="select * from BOOK where SOLD=0 AND "+target+" like ? limit ?,?";
+        String query="select * from BOOK where SOLD=0 AND "+target+" like ? order by DATE desc limit ?,?";
         PreparedStatement ps=con.prepareStatement(query);
         ps.setString(1,'%'+search+'%');
         ps.setInt(2,start);
@@ -91,7 +91,7 @@ public class Book {
         int start=(page-1)*8;
         int end=page*8;
         Connection con=dbConnection.connect();
-        String query="select * from BOOK where SOLD=0 AND CATEGORY=? AND "+target+" like ? limit ?,?";
+        String query="select * from BOOK where SOLD=0 AND CATEGORY=? AND "+target+" like ? order by DATE desc limit ?,?";
         PreparedStatement ps=con.prepareStatement(query);
         ps.setString(1,category);
         ps.setString(2,'%'+search+'%');
@@ -161,7 +161,7 @@ public class Book {
         Connection con=dbConnection.connect();
         PreparedStatement ps=con.prepareStatement(query);
         ps.setString(1,category);
-        ps.setString(2,search);
+        ps.setString(2,'%'+search+'%');
         ResultSet rs=ps.executeQuery();
         if(rs.next()){
             count=rs.getInt(1);

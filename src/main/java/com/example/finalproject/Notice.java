@@ -12,7 +12,7 @@ public class Notice {
         ArrayList<HashMap<String,String>> noticeList=new ArrayList<HashMap<String,String>>();
         Connection con=dbConnection.connect();
         Statement st = con.createStatement();
-        ResultSet rs=st.executeQuery("select * from NOTICE");
+        ResultSet rs=st.executeQuery("select * from NOTICE order by DATE desc");
         int num=0;
         String title="";
         int i=0;
@@ -36,7 +36,7 @@ public class Notice {
         int end=(page)*10;
         Connection con=dbConnection.connect();
         Statement st = con.createStatement();
-        PreparedStatement ps=con.prepareStatement("select * from NOTICE limit ?,?");
+        PreparedStatement ps=con.prepareStatement("select * from NOTICE order by DATE desc limit ?,?");
         ps.setInt(1,start);
         ps.setInt(2,end);
         ResultSet rs=ps.executeQuery();
@@ -64,7 +64,7 @@ public class Notice {
         int start=(page-1)*10;
         int end=(page)*10;
         Connection con=dbConnection.connect();
-        PreparedStatement ps=con.prepareStatement("select * from NOTICE where "+target+" like ? limit ?,?");
+        PreparedStatement ps=con.prepareStatement("select * from NOTICE where "+target+" like ? order by DATE desc limit ?,?");
         ps.setString(1,'%'+search+'%');
         ps.setInt(2,start);
         ps.setInt(3,end);;

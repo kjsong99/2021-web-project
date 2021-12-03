@@ -268,6 +268,22 @@ public class User {
         ps.executeUpdate();
     }
 
+    public static int isIdValid(String username) throws IOException, SQLException {
+        int valid=0;
+        String query="select exists(select * from USER where USERNAME=?) as exist";
+        Connection con=dbConnection.connect();
+        PreparedStatement ps=con.prepareStatement(query);
+        ps.setString(1,username);
+        ResultSet rs=ps.executeQuery();
+
+        if(rs.next()){
+            valid=rs.getInt(1);
+        }
+        return valid;
+    }
+
+
+
 //    public static void userModify(String username,HashMap<String,String> userInfo) throws ParseException, IOException, SQLException {
 //        SimpleDateFormat df1=new SimpleDateFormat("yyyy-MM-dd");
 //        String name=userInfo.get("name");

@@ -19,11 +19,11 @@ public class User {
         ps.setString(1,username);
         ResultSet rs=ps.executeQuery();
         if(rs.next()){
-             String name=rs.getString(2);
-             String phone=rs.getString(4);
-             String sex=rs.getString(5);
-             String birth= String.valueOf(rs.getDate(6));
-             String nickname=rs.getString(8);
+            String name=rs.getString(2);
+            String phone=rs.getString(4);
+            String sex=rs.getString(5);
+            String birth= String.valueOf(rs.getDate(6));
+            String nickname=rs.getString(8);
 
 
             info.put("name",name);

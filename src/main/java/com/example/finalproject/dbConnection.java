@@ -1,9 +1,7 @@
 package com.example.finalproject;
 
-import javax.servlet.http.HttpServletRequest;
+
 import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.Properties;
@@ -12,7 +10,7 @@ public class dbConnection {
     public static Connection connect() throws IOException {
         Connection conn=null;
         Properties pro=new Properties();
-        String path="/Users/song-gyeongjin/jsp/finalProject/src/main/webapp/config/conn.properties";
+        String path="C:\\Users\\ycl62.000\\2021-web-project\\src\\main\\webapp\\config\\conn.properties";
         FileInputStream fis=new FileInputStream(path);
         pro.load(new BufferedInputStream(fis));
 

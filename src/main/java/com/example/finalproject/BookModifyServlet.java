@@ -21,6 +21,7 @@ public class BookModifyServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int num= Integer.parseInt(request.getParameter("num"));
+        System.out.println(num);
         String title=request.getParameter("title");
         int price= Integer.parseInt(request.getParameter("price"));
         String writer=request.getParameter("writer");
@@ -33,6 +34,7 @@ public class BookModifyServlet extends HttpServlet {
             Statement st = con.createStatement();
             String query="update BOOK set TITLE=? ,PRICE=?, WRITER=?, CATEGORY=?,COMPANY=?, STATUS=? where NUMBER="+num;
             PreparedStatement ps=con.prepareStatement(query);
+
             ps.setString(1,title);
             ps.setInt(2,price);
             ps.setString(3,writer);
@@ -40,6 +42,7 @@ public class BookModifyServlet extends HttpServlet {
             ps.setString(5,company);
             ps.setString(6,status);
 
+            System.out.println(ps.toString());
 
 
             ps.executeUpdate();

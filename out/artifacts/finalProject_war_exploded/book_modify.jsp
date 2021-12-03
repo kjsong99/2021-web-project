@@ -69,7 +69,7 @@
     <div class="col-lg-3"></div>
     <div class="input-form col-lg-6 mx-auto">
         <div class="jumbotron" style="padding-top: 5px; background-color:#ffffff;">
-            <form method="post" action="/bookModify" style="padding-top:10px" accept-charset="utf-8" enctype="multipart/form-data">
+            <form method="post" action="/bookModify" style="padding-top:10px" accept-charset="utf-8" >
                 <h2 style="text-align:center; font-weight:bold; padding-bottom:20px;">판매 정보 수정</h2>
 
                 <div class="form-group">
